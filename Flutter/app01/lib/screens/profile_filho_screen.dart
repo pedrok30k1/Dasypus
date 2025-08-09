@@ -286,7 +286,7 @@ class _ProfileScreenFilhoState extends State<ProfileScreenFilho> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Meu Perfil'),
+        title: const Text('Perfil do Filho'),
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         actions: [
@@ -428,6 +428,42 @@ class _ProfileScreenFilhoState extends State<ProfileScreenFilho> {
                         _buildJsonDataCard(),
                         
                         const SizedBox(height: 32),
+
+                        Card(
+              color: Colors.blue.shade50,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      '👤 Categorias',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Visualize categorias do filhos',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    const SizedBox(height: 12),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        AppRoutes.navigateTo(context, AppRoutes.listeFilho);
+                      },
+                      icon: const Icon(Icons.person),
+                      label: const Text('visializar filhos'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
                       ],
                     ),
                   ),

@@ -1,3 +1,4 @@
+import 'package:app01/routes/app_routes.dart';
 import 'package:app01/services/api_service.dart';
 import 'package:app01/utils/shared_prefs_helper.dart';
 import 'package:flutter/material.dart';
@@ -82,30 +83,25 @@ class _ProfilesFilhosScreenState extends State<ProfilesFilhosScreen> {
     // Aqui você pode implementar a ação que quiser
     // Por exemplo, navegar para outro perfil, selecionar, ativar, etc.
     print('👦 Tocou no filho: ${child['nome']}');
-    
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Selecionado: ${child['nome']}')),
-    );
+    var saveUserFilhoId = SharedPrefsHelper.saveUserFilhoId(child['id']);
+    AppRoutes.navigateTo(context, AppRoutes.listaCategoria);
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('Selecionado: ${child['nome']}')));
   }
 
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     if (_hasError) {
-      return Scaffold(
-        body: Center(child: Text(_errorMessage)),
-      );
+      return Scaffold(body: Center(child: Text(_errorMessage)));
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Perfis dos Filhos'),
-      ),
+      appBar: AppBar(title: const Text('Perfis dos Filhos')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Wrap(
@@ -122,10 +118,7 @@ class _ProfilesFilhosScreenState extends State<ProfilesFilhosScreen> {
                     backgroundColor: Colors.blueAccent,
                     child: Text(
                       _getInitials(child['nome']),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                      ),
+                      style: const TextStyle(color: Colors.white, fontSize: 24),
                     ),
                   ),
                   const SizedBox(height: 8),

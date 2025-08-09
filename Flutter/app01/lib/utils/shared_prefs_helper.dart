@@ -83,7 +83,7 @@ class SharedPrefsHelper {
   static Future<bool> saveUserId(int userId) async {
     return await saveInt('user_id', userId);
   }
-  /// Salvar ID do usuário
+  /// Salvar ID do usuário filho
   static Future<bool> saveUserFilhoId(int userId) async {
     return await saveInt('userFilho_id', userId);
   }
@@ -91,7 +91,7 @@ class SharedPrefsHelper {
   static Future<int?> getUserId() async {
     return await getInt('user_id');
   }
- /// Recuperar ID do usuário
+ /// Recuperar ID do usuário filho
   static Future<int?> getUserFilhoId() async {
     return await getInt('userFilho_id');
   }
@@ -104,25 +104,13 @@ class SharedPrefsHelper {
   static Future<int?> getCounter() async {
     return await getInt('counter');
   }
-
-  /// Salvar token de autenticação
-  static Future<bool> saveAuthToken(String token) async {
-    return await saveString('auth_token', token);
+  /// Salvar id Categoria
+  static Future<bool> saveCategoriaId(int categoriaId) async {  
+    return await saveInt('categoria_id', categoriaId);
   }
-
-  /// Recuperar token de autenticação
-  static Future<String?> getAuthToken() async {
-    return await getString('auth_token');
-  }
-
-  /// Salvar dados do usuário
-  static Future<bool> saveUserData(String userData) async {
-    return await saveString('user_data', userData);
-  }
-
-  /// Recuperar dados do usuário
-  static Future<String?> getUserData() async {
-    return await getString('user_data');
+  /// Recuperar id Categoria
+  static Future<int?> getCategoriaId() async {
+    return await getInt('categoria_id');
   }
 
   // ===========================
