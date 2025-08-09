@@ -221,9 +221,10 @@ class ApiService {
             Uri.parse(ApiConstants.registerCategoryUrl),
             headers: ApiConstants.defaultHeaders,
             body: json.encode({
-              'nome': categoria.nome,
-              'id_usuario': categoria.idUsuario,
-              'cor': categoria.temaCor ?? '#FF5733',
+              "nome": categoria.nome,
+              "id_usuario": categoria.idUsuario,
+              "foto_url": categoria.fotoUrl ?? '',
+              "cor": categoria.temaCor ?? '#FF5733'
             }),
           )
           .timeout(ApiConstants.requestTimeout);
@@ -300,10 +301,11 @@ class ApiService {
             Uri.parse(ApiConstants.registerCardUrl),
             headers: ApiConstants.defaultHeaders,
             body: json.encode({
-              'pergunta': card.pergunta,
-              'resposta': card.resposta,
-              'id_categoria': card.idCategoria,
-              'dificuldade': card.dificuldade ?? 'facil',
+              "titulo": card.titulo,
+			        "descricao": card.descricao,
+			        "imagem_url": card.imagemUrl ?? '',
+			        "tema_cor": card.temaCor ?? '#FF5733',
+			        "id_categoria": card.idCategoria
             }),
           )
           .timeout(ApiConstants.requestTimeout);
@@ -322,10 +324,11 @@ class ApiService {
             Uri.parse(ApiConstants.updateCardUrl),
             headers: ApiConstants.defaultHeaders,
             body: json.encode({
-              'id': card.id,
-              'pergunta': card.pergunta,
-              'resposta': card.resposta,
-              'dificuldade': card.dificuldade ?? 'facil',
+              "titulo": card.titulo,
+			        "descricao": card.descricao,
+			        "imagem_url": card.imagemUrl ?? '',
+			        "tema_cor": card.temaCor ?? '#FF5733',
+			        "id_categoria": card.idCategoria
             }),
           )
           .timeout(ApiConstants.requestTimeout);

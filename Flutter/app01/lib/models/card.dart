@@ -1,26 +1,29 @@
 class Card {
   final int? id;
-  final String pergunta;
-  final String resposta;
+  final String titulo;
+  final String descricao;
+  final String? imagemUrl;
+  final String? temaCor;
   final int idCategoria;
-  final String? dificuldade;
 
   Card({
     this.id,
-    required this.pergunta,
-    required this.resposta,
+    required this.titulo,
+    required this.descricao,
+    this.imagemUrl,
+    this.temaCor,
     required this.idCategoria,
-    this.dificuldade,
   });
 
   // Convert Card to JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'pergunta': pergunta,
-      'resposta': resposta,
+      'titulo': titulo,
+      'descricao': descricao,
+      'imagem_url': imagemUrl,
+      'tema_cor': temaCor,
       'id_categoria': idCategoria,
-      'dificuldade': dificuldade,
     };
   }
 
@@ -28,32 +31,35 @@ class Card {
   factory Card.fromJson(Map<String, dynamic> json) {
     return Card(
       id: json['id'],
-      pergunta: json['pergunta'],
-      resposta: json['resposta'],
+      titulo: json['titulo'],
+      descricao: json['descricao'],
+      imagemUrl: json['imagem_url'],
+      temaCor: json['tema_cor'],
       idCategoria: json['id_categoria'],
-      dificuldade: json['dificuldade'],
     );
   }
 
   // Create a copy of Card with some fields changed
   Card copyWith({
     int? id,
-    String? pergunta,
-    String? resposta,
+    String? titulo,
+    String? descricao,
+    String? imagemUrl,
+    String? temaCor,
     int? idCategoria,
-    String? dificuldade,
   }) {
     return Card(
       id: id ?? this.id,
-      pergunta: pergunta ?? this.pergunta,
-      resposta: resposta ?? this.resposta,
+      titulo: titulo ?? this.titulo,
+      descricao: descricao ?? this.descricao,
+      imagemUrl: imagemUrl ?? this.imagemUrl,
+      temaCor: temaCor ?? this.temaCor,
       idCategoria: idCategoria ?? this.idCategoria,
-      dificuldade: dificuldade ?? this.dificuldade,
     );
   }
 
   @override
   String toString() {
-    return 'Card(id: $id, pergunta: $pergunta, idCategoria: $idCategoria, dificuldade: $dificuldade)';
+    return 'Card(id: $id, titulo: $titulo, descricao: $descricao, imagemUrl: $imagemUrl, temaCor: $temaCor, idCategoria: $idCategoria)';
   }
 }
