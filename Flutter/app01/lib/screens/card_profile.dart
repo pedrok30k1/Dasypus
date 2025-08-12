@@ -87,7 +87,7 @@ class _CardProfileScreenState extends State<CardProfileScreen> {
   void _onAddButtonPressed() {
     // Aqui vai a função para adicionar novo card
     print("Botão + clicado");
-     AppRoutes.navigateTo(context, AppRoutes.profile);
+     AppRoutes.navigateTo(context, AppRoutes.registerCard);
   }
 
   @override

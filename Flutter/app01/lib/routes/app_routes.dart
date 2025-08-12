@@ -2,6 +2,7 @@ import 'package:app01/screens/card_profile.dart';
 import 'package:app01/screens/categoria_profile.dart';
 import 'package:app01/screens/profile_filho_screen.dart';
 import 'package:app01/screens/profiles_filhos_screen.dart';
+import 'package:app01/screens/register_card.dart';
 import 'package:app01/screens/register_categoria.dart';
 import 'package:flutter/material.dart';
 import '../screens/login_screen.dart';
@@ -50,6 +51,9 @@ class AppRoutes {
   // Rota de criação de categoria
   static const String criarCategoria = '/criarCategoria'; 
 
+  // Rota de criação de card
+  static const String registerCard = '/registerCard';
+
   // Configuração das rotas usando Routefly
   static final routes = {
     home: (context) => const LoginScreen(),
@@ -63,6 +67,7 @@ class AppRoutes {
     listaCategoria: (context) => const CategoriaProfileScreen(),
     listaCard: (context) => const CardProfileScreen(),
     criarCategoria: (context) => const CriarCategoriaPage(),
+    registerCard: (context) => const CriarCardPage(),
     settings: (context) =>
         const Scaffold(body: Center(child: Text('Configurações'))),
   };

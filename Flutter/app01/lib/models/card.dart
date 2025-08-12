@@ -4,6 +4,7 @@ class Card {
   final String descricao;
   final String? imagemUrl;
   final String? temaCor;
+  final String? fonte; // Novo campo
   final int idCategoria;
 
   Card({
@@ -12,6 +13,7 @@ class Card {
     required this.descricao,
     this.imagemUrl,
     this.temaCor,
+    this.fonte, // Novo campo
     required this.idCategoria,
   });
 
@@ -23,6 +25,7 @@ class Card {
       'descricao': descricao,
       'imagem_url': imagemUrl,
       'tema_cor': temaCor,
+      'fonte': fonte, // Novo campo
       'id_categoria': idCategoria,
     };
   }
@@ -35,6 +38,7 @@ class Card {
       descricao: json['descricao'],
       imagemUrl: json['imagem_url'],
       temaCor: json['tema_cor'],
+      fonte: json['fonte'], // Novo campo
       idCategoria: json['id_categoria'],
     );
   }
@@ -46,6 +50,7 @@ class Card {
     String? descricao,
     String? imagemUrl,
     String? temaCor,
+    String? fonte, // Novo campo
     int? idCategoria,
   }) {
     return Card(
@@ -54,12 +59,13 @@ class Card {
       descricao: descricao ?? this.descricao,
       imagemUrl: imagemUrl ?? this.imagemUrl,
       temaCor: temaCor ?? this.temaCor,
+      fonte: fonte ?? this.fonte, // Novo campo
       idCategoria: idCategoria ?? this.idCategoria,
     );
   }
 
   @override
   String toString() {
-    return 'Card(id: $id, titulo: $titulo, descricao: $descricao, imagemUrl: $imagemUrl, temaCor: $temaCor, idCategoria: $idCategoria)';
+    return 'Card(id: $id, titulo: $titulo, descricao: $descricao, imagemUrl: $imagemUrl, temaCor: $temaCor, fonte: $fonte, idCategoria: $idCategoria)';
   }
 }

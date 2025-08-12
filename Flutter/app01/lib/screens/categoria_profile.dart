@@ -73,7 +73,7 @@ class _CategoriaProfileScreenState extends State<CategoriaProfileScreen> {
 
   void _onCategoriaTap(Map<String, dynamic> categoria) {
     print('Categoria clicada: ${categoria['nome']}');
-    SharedPrefsHelper.saveUserFilhoId(categoria['id']);
+    SharedPrefsHelper.saveCategoriaId(categoria['id']);
     AppRoutes.navigateTo(context, AppRoutes.listaCard);
   }
 

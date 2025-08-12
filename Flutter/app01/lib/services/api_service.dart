@@ -305,7 +305,8 @@ class ApiService {
 			        "descricao": card.descricao,
 			        "imagem_url": card.imagemUrl ?? '',
 			        "tema_cor": card.temaCor ?? '#FF5733',
-			        "id_categoria": card.idCategoria
+			        "id_categoria": card.idCategoria,
+              "fonte": card.fonte ?? 'A', // Novo campo
             }),
           )
           .timeout(ApiConstants.requestTimeout);
