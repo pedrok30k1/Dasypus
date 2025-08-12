@@ -74,13 +74,12 @@ class _CategoriaProfileScreenState extends State<CategoriaProfileScreen> {
   void _onCategoriaTap(Map<String, dynamic> categoria) {
     print('Categoria clicada: ${categoria['nome']}');
     SharedPrefsHelper.saveUserFilhoId(categoria['id']);
-    
     AppRoutes.navigateTo(context, AppRoutes.listaCard);
   }
 
   void _onAdicionarCategoria() {
     print('Botão + clicado');
-    AppRoutes.navigateTo(context, AppRoutes.profile);
+    AppRoutes.navigateTo(context, AppRoutes.criarCategoria);
   }
 
   @override
@@ -98,36 +97,50 @@ class _CategoriaProfileScreenState extends State<CategoriaProfileScreen> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: _categorias.length,
-              itemBuilder: (context, index) {
-                final categoria = _categorias[index];
-                final cor = categoria['tema_cor'] != null
-                    ? _hexToColor(categoria['tema_cor'])
-                    : Colors.grey[300];
+            child: _categorias.isEmpty
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Nenhuma categoria encontrada para este usuário.',
+                          style: TextStyle(fontSize: 16),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 16),
+                      ],
+                    ),
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.all(8),
+                    itemCount: _categorias.length,
+                    itemBuilder: (context, index) {
+                      final categoria = _categorias[index];
+                      final cor = categoria['tema_cor'] != null
+                          ? _hexToColor(categoria['tema_cor'])
+                          : Colors.grey[300];
 
-                return GestureDetector(
-                  onTap: () => _onCategoriaTap(categoria),
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    margin: const EdgeInsets.symmetric(vertical: 4),
-                    decoration: BoxDecoration(
-                      color: cor,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      categoria['nome'] ?? '',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                      return GestureDetector(
+                        onTap: () => _onCategoriaTap(categoria),
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(16),
+                          margin: const EdgeInsets.symmetric(vertical: 4),
+                          decoration: BoxDecoration(
+                            color: cor,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            categoria['nome'] ?? '',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           ),
           SafeArea(
             child: Padding(

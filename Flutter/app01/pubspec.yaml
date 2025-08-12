@@ -47,6 +47,8 @@ dependencies:
   # Flutter TTS for text-to-speech functionality
   flutter_tts: ^4.0.2
 
+  flutter_colorpicker: ^1.0.3
+
   # Flutter localizations for internationalization
   flutter_localizations:
     sdk: flutter

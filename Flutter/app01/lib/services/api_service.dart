@@ -224,7 +224,7 @@ class ApiService {
               "nome": categoria.nome,
               "id_usuario": categoria.idUsuario,
               "foto_url": categoria.fotoUrl ?? '',
-              "cor": categoria.temaCor ?? '#FF5733'
+              "tema_cor": categoria.temaCor ?? '#FF5733'
             }),
           )
           .timeout(ApiConstants.requestTimeout);
