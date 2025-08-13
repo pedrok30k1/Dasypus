@@ -25,7 +25,7 @@ class _CardProfileScreenState extends State<CardProfileScreen> {
   Future<void> speak(String text) async {
     await flutterTts.setLanguage("pt-BR"); // português
     await flutterTts.setPitch(1);          // tom da voz
-    await flutterTts.setSpeechRate(0.9);   // velocidade
+    await flutterTts.setSpeechRate(0.5);   // velocidade
     await flutterTts.speak(text);
   }
   @override
@@ -81,7 +81,7 @@ class _CardProfileScreenState extends State<CardProfileScreen> {
 
   void _onCardTap(Map<String, dynamic> card) {
     print("Clicou no card: ${card['titulo']}");
-    speak(card['descricao'] ?? '');
+    speak(card['descricao'] ?? 'oi');
   }
 
   void _onAddButtonPressed() {
@@ -107,8 +107,9 @@ class _CardProfileScreenState extends State<CardProfileScreen> {
         itemCount: _cards.length,
         itemBuilder: (context, index) {
           final card = _cards[index];
-          return GestureDetector(
+          return InkWell(
             onTap: () => _onCardTap(card),
+            borderRadius: BorderRadius.circular(8),
             child: Container(
               width: double.infinity,
               margin: const EdgeInsets.symmetric(vertical: 6),
