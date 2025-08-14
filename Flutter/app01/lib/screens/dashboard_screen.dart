@@ -70,76 +70,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      '📊 Dados do SharedPreferences',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-
-                    // User ID
-                    Row(
-                      children: [
-                        const Icon(Icons.person, color: Colors.blue),
-                        const SizedBox(width: 8),
-                        Text('User ID: ${_userId ?? 'Não definido'}'),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-
-                    // Counter
-                    Row(
-                      children: [
-                        const Icon(Icons.numbers, color: Colors.green),
-                        const SizedBox(width: 8),
-                        Text('Contador: ${_counter ?? 0}'),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 8),
-
-            // Botões de ação
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: _incrementCounter,
-                    icon: const Icon(Icons.add),
-                    label: const Text('Incrementar'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      foregroundColor: Colors.white,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: _clearUserData,
-                    icon: const Icon(Icons.delete),
-                    label: const Text('Limpar'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      foregroundColor: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 8),
+           
 
             // Botão para acessar perfil
             Card(

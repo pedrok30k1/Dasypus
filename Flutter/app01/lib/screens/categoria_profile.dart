@@ -93,70 +93,64 @@ class _CategoriaProfileScreenState extends State<CategoriaProfileScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Categorias')),
-      body: Column(
-        children: [
-          Expanded(
-            child: _categorias.isEmpty
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Nenhuma categoria encontrada para este usuário.',
-                          style: TextStyle(fontSize: 16),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    ),
-                  )
-                : ListView.builder(
-                    padding: const EdgeInsets.all(8),
-                    itemCount: _categorias.length,
-                    itemBuilder: (context, index) {
-                      final categoria = _categorias[index];
-                      final cor = categoria['tema_cor'] != null
-                          ? _hexToColor(categoria['tema_cor'])
-                          : Colors.grey[300];
-
-                      return GestureDetector(
-                        onTap: () => _onCategoriaTap(categoria),
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(16),
-                          margin: const EdgeInsets.symmetric(vertical: 4),
-                          decoration: BoxDecoration(
-                            color: cor,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            categoria['nome'] ?? '',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      );
-                    },
+      appBar: AppBar(
+        title: const Text('Categorias'),
+        backgroundColor: Colors.blue,
+      ),
+      body: _categorias.isEmpty
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Nenhuma categoria encontrada para este usuário.',
+                    style: TextStyle(fontSize: 16),
+                    textAlign: TextAlign.center,
                   ),
-          ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton.icon(
-                  onPressed: _onAdicionarCategoria,
-                  icon: const Icon(Icons.add),
-                  label: const Text('Adicionar Categoria'),
-                ),
+                  const SizedBox(height: 16),
+                ],
               ),
+            )
+          : GridView.builder(
+              padding: const EdgeInsets.all(20),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 15,
+                childAspectRatio: 2.5,
+              ),
+              itemCount: _categorias.length,
+              itemBuilder: (context, index) {
+                final categoria = _categorias[index];
+                final cor = categoria['tema_cor'] != null
+                    ? _hexToColor(categoria['tema_cor'])
+                    : Colors.blue;
+                return InkWell(
+                  onTap: () => _onCategoriaTap(categoria),
+                  child: Card(
+                    color: cor,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      child: Center(
+                        child: Text(
+                          categoria['nome'] ?? '',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
-          ),
-        ],
+      floatingActionButton: FloatingActionButton(
+        onPressed: _onAdicionarCategoria,
+        child: const Icon(Icons.add),
+        backgroundColor: Colors.blue,
       ),
     );
   }

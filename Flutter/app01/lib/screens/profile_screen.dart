@@ -422,11 +422,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         // Informações do usuário
                         _buildUserInfo(),
                         
-                        const SizedBox(height: 16),
-                        
-                        // Dados JSON completos
-                        _buildJsonDataCard(),
-                        
                         const SizedBox(height: 32),
                       ],
                     ),
@@ -434,4 +429,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-} 
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
 import '../utils/validators.dart';
@@ -31,6 +32,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _isLoading = false;
   DateTime? _selectedDate;
   final ApiService _apiService = ApiService();
+
+  final _dateMaskFormatter = MaskTextInputFormatter(
+    mask: '##/##/####',
+    filter: { "#": RegExp(r'[0-9]') },
+    type: MaskAutoCompletionType.lazy,
+  );
 
   @override
   void dispose() {
@@ -286,16 +293,68 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         const SizedBox(height: 16),
 
-                        // Campo de data de nascimento
-                        CustomTextField(
-                          controller: _birthDateController,
-                          labelText: 'Data de Nascimento',
-                          hintText: 'DD/MM/AAAA',
-                          keyboardType: TextInputType.datetime,
-                          prefixIcon: Icons.cake_outlined,
-                          validator: (value) => Validators.validateRequired(value, 'sua data de nascimento'),
-                          onTap: () => _selectDate(),
-                          readOnly: true,
+                        // Campo de data de nascimento com botão de calendário estilizado
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 4,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _birthDateController,
+                                  decoration: InputDecoration(
+                                    labelText: 'Data de Nascimento',
+                                    hintText: 'DD/MM/AAAA',
+                                    prefixIcon: Icon(Icons.cake_outlined, color: AppColors.primary),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    _dateMaskFormatter,
+                                    LengthLimitingTextInputFormatter(10),
+                                  ],
+                                  validator: (value) => Validators.validateRequired(value, 'sua data de nascimento'),
+                                  onTap: () async {
+                                    FocusScope.of(context).requestFocus(FocusNode()); // Evita abrir teclado
+                                    final DateTime? picked = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now().subtract(const Duration(days: 6570)),
+                                      firstDate: DateTime.now().subtract(const Duration(days: 36500)),
+                                      lastDate: DateTime.now().subtract(const Duration(days: 6570)),
+                                      locale: const Locale('pt', 'BR'),
+                                    );
+                                    if (picked != null) {
+                                      final formatted = '${picked.day.toString().padLeft(2, '0')}/${picked.month.toString().padLeft(2, '0')}/${picked.year}';
+                                      setState(() {
+                                        _selectedDate = picked;
+                                        _birthDateController.text = formatted;
+                                      });
+                                    }
+                                  },
+                                  readOnly: false, // Permite digitação manual
+                                ),
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.calendar_month, color: AppColors.primary),
+                                tooltip: 'Selecionar data',
+                                onPressed: _selectDate,
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(height: 16),
 
@@ -345,13 +404,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         const SizedBox(height: 16),
 
-                        // Campo de sobre (opcional)
-                        CustomTextField(
-                          controller: _aboutController,
-                          labelText: 'Sobre (opcional)',
-                          hintText: 'Conte um pouco sobre você',
-                          maxLines: 3,
-                          prefixIcon: Icons.info_outlined,
+                        // Campo de sobre (opcional) com borda arredondada e sombra
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 4,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            controller: _aboutController,
+                            decoration: InputDecoration(
+                              labelText: 'Sobre (opcional)',
+                              hintText: 'Conte um pouco sobre você',
+                              prefixIcon: Icon(Icons.info_outlined, color: AppColors.primary),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide.none,
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                            ),
+                            maxLines: 3,
+                          ),
                         ),
                         const SizedBox(height: 24),
 
@@ -362,25 +442,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           isLoading: _isLoading,
                           backgroundColor: AppColors.primary,
                           icon: Icons.person_add,
-                        ),
-                        const SizedBox(height: 24),
-
-                        // Divisor
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Divider(color: AppColors.textLight),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                              ),
-                              child: Text('ou', style: AppTextStyles.bodySmall),
-                            ),
-                            Expanded(
-                              child: Divider(color: AppColors.textLight),
-                            ),
-                          ],
                         ),
                         const SizedBox(height: 24),
 
@@ -421,4 +482,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-} 
+}

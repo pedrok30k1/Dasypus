@@ -40,6 +40,13 @@ class ApiConstants {
   static const String registerCardEndpoint = 'card/criar/';
   static const String updateCardEndpoint = 'card/atualizar/';
   static const String deleteCardEndpoint = 'card/deletar/';
+  /// ===========================
+  /// Endpoints - Imagem
+  /// ===========================
+  static const String uploadImageEndpoint = 'imagem/upload/';
+  static const String deleteImageEndpoint = 'imagem/deletar/';
+  static const String listImagesByImgEndpoint = 'imagem/listar/';
+  static const String dowloudImagesEndpoint = 'imagem/dowloud/';
 
   // ===========================
   // Métodos para URLs completas
@@ -65,4 +72,10 @@ class ApiConstants {
   static String get registerCardUrl => '$apiUrl$registerCardEndpoint';
   static String get updateCardUrl => '$apiUrl$updateCardEndpoint';
   static String get deleteCardUrl => '$apiUrl$deleteCardEndpoint';
+  // Imagem
+  static String get uploadImageUrl => '$apiUrl$uploadImageEndpoint';
+  static String get deleteImageUrl => '$apiUrl$deleteImageEndpoint';
+  static String get listImagesByImgUrl => '$apiUrl$listImagesByImgEndpoint';
+  static String get dowloudImagesUrl => '$apiUrl$dowloudImagesEndpoint';
+  
 }

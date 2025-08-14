@@ -18,16 +18,8 @@ class _CardProfileScreenState extends State<CardProfileScreen> {
   String _errorMessage = '';
   List<dynamic> _cards = [];
   final ApiService _apiService = ApiService();
-  String _frase = "";
   final FlutterTts flutterTts = FlutterTts();
-  final TextEditingController controller = TextEditingController();
 
-  Future<void> speak(String text) async {
-    await flutterTts.setLanguage("pt-BR"); // português
-    await flutterTts.setPitch(1);          // tom da voz
-    await flutterTts.setSpeechRate(0.5);   // velocidade
-    await flutterTts.speak(text);
-  }
   @override
   void initState() {
     super.initState();
@@ -79,15 +71,20 @@ class _CardProfileScreenState extends State<CardProfileScreen> {
     }
   }
 
+  Future<void> speak(String text) async {
+    await flutterTts.setLanguage("pt-BR");
+    await flutterTts.setPitch(1);
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.speak(text);
+  }
+
   void _onCardTap(Map<String, dynamic> card) {
     print("Clicou no card: ${card['titulo']}");
     speak(card['descricao'] ?? 'oi');
   }
 
   void _onAddButtonPressed() {
-    // Aqui vai a função para adicionar novo card
-    print("Botão + clicado");
-     AppRoutes.navigateTo(context, AppRoutes.registerCard);
+    AppRoutes.navigateTo(context, AppRoutes.registerCard);
   }
 
   @override
@@ -102,37 +99,63 @@ class _CardProfileScreenState extends State<CardProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text("Meus Cards")),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemCount: _cards.length,
-        itemBuilder: (context, index) {
-          final card = _cards[index];
-          return InkWell(
-            onTap: () => _onCardTap(card),
-            borderRadius: BorderRadius.circular(8),
-            child: Container(
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(vertical: 6),
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: _hexToColor(card['tema_cor'] ?? "#CCCCCC"),
-                borderRadius: BorderRadius.circular(8),
+      body: _cards.isEmpty
+          ? const Center(child: Text("Nenhum card encontrado."))
+          : GridView.builder(
+              padding: const EdgeInsets.all(20),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 1.3,
               ),
-              child: Text(
-                card['titulo'] ?? '',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
+              itemCount: _cards.length,
+              itemBuilder: (context, index) {
+                final card = _cards[index];
+                final cor = _hexToColor(card['tema_cor'] ?? "#CCCCCC");
+                return InkWell(
+                  onTap: () => _onCardTap(card),
+                  borderRadius: BorderRadius.circular(8),
+                  child: Card(
+                    color: cor,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              card['titulo'] ?? '',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 8),
+                            if (card['descricao'] != null && card['descricao'].toString().isNotEmpty)
+                              Text(
+                                card['descricao'],
+                                style: const TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 14,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _onAddButtonPressed,
         child: const Icon(Icons.add),
+        backgroundColor: Colors.blue,
       ),
     );
   }
